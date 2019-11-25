@@ -9,13 +9,14 @@
 FORM MAIN_PROC.
 *   MARA を読み、必要な項目のみを内部テーブルMARAに一括で溜め込む
   SELECT
-        MATNR,
-        ERNAM,
-        BRGEW,
-        GEWEI
-   FROM MARA
-   INTO TABLE
-        @GIT_MARA.
+    MATNR,
+    ERNAM,
+    BRGEW,
+    GEWEI
+  FROM
+    MARA
+  INTO TABLE
+    @GIT_MARA.
 
   IF SY-SUBRC IS INITIAL.
 *    内部テーブルMARAの品目コードで昇順にソートしておく
@@ -33,16 +34,17 @@ FORM MAIN_PROC.
 *  MBEW と内部テーブルMARAは、品目コードで結びつける（WHERE 条件）
   IF GIT_MARA IS NOT INITIAL.
     SELECT
-          MATNR,
-          BWKEY,
-          STPRS
-     FROM MBEW
+      MATNR,
+      BWKEY,
+      STPRS
+    FROM
+      MBEW
     FOR ALL ENTRIES IN
-          @GIT_MARA
+      @GIT_MARA
      WHERE
-          MATNR = @GIT_MARA-MATNR
+       MATNR = @GIT_MARA-MATNR
     INTO TABLE
-          @GIT_MBEW.
+      @GIT_MBEW.
 
     IF SY-SUBRC IS INITIAL.
 *  内部テーブルMBEWの品目コードで昇順にソートしておく
@@ -50,11 +52,13 @@ FORM MAIN_PROC.
 *  内部テーブルMBEWをLOOP させて、帳票を出力する。
 *  金額については、テーブルT001 が参照項目になっているので、はじめに１度だけT001を会社コード’0001’でよんでおく。
       SELECT SINGLE
-             WAERS           "通貨コード
-        FROM T001
-        INTO GV_WAERS        "通貨
-       WHERE
-             BUKRS = '1010'. "会社コード
+        WAERS           "通貨コード
+      FROM
+        T001
+      INTO
+        GV_WAERS        "通貨
+      WHERE
+        BUKRS = '1010'. "会社コード
       IF SY-SUBRC IS INITIAL.
       ELSE.
         CLEAR GV_WAERS. "通貨
