@@ -42,8 +42,6 @@ FORM MAIN_PROC.
 
   ENDIF.
 
-
-
   LOOP AT GIT_MABW INTO GW_MABW .
     WRITE:
       /   GW_MABW-MATNR,                       "品目コード
