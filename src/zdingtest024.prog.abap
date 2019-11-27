@@ -49,27 +49,27 @@ DATA:
 *&---------------------------------------------------------------------*
 
 CALL FUNCTION 'REUSE_ALV_FIELDCATALOG_MERGE'
-EXPORTING
-   I_PROGRAM_NAME               = SY-REPID
-   I_INTERNAL_TABNAME           = 'GIT_MARD'
+  EXPORTING
+    I_PROGRAM_NAME               = SY-REPID
+    I_INTERNAL_TABNAME           = 'GIT_MARD'
 *   I_STRUCTURE_NAME             =
 *   I_CLIENT_NEVER_DISPLAY       = 'X'
-   I_INCLNAME                   = SY-REPID
+    I_INCLNAME                   = SY-REPID
 *   I_BYPASSING_BUFFER           =
 *   I_BUFFER_ACTIVE              =
   CHANGING
     CT_FIELDCAT                  = GIT_FIELDCAT
- EXCEPTIONS
-   INCONSISTENT_INTERFACE       = 1
-   PROGRAM_ERROR                = 2
-   OTHERS                       = 3
+  EXCEPTIONS
+    INCONSISTENT_INTERFACE       = 1
+    PROGRAM_ERROR                = 2
+    OTHERS                       = 3
           .
 
 *&---------------------------------------------------------------------*
 *&　画面表示
 *&---------------------------------------------------------------------*
 
-    CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
+  CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
     EXPORTING
 *       I_INTERFACE_CHECK                 = ' '
 *       I_BYPASSING_BUFFER                = ' '
@@ -114,9 +114,9 @@ EXPORTING
 *       ES_EXIT_CAUSED_BY_USER            =
       TABLES
         T_OUTTAB                          = GIT_MARD
-     EXCEPTIONS
-       PROGRAM_ERROR                     = 1
-       OTHERS                            = 2
+      EXCEPTIONS
+        PROGRAM_ERROR                     = 1
+        OTHERS                            = 2
               .
 IF SY-SUBRC <> 0.
   MESSAGE E002(ZDTEST01).
