@@ -22,7 +22,7 @@ TYPES:
 
 DATA:
   GIT_MARA TYPE TYP_T_MARA,            "内部テーブル
-  WA_MARA  TYPE TYP_W_MARA,            "作業エリア
+  GW_MARA  TYPE TYP_W_MARA,            "作業エリア
   LV_COUNT TYPE P.                     "取得件数
 
 *----------------------------------------------------------------------*
@@ -40,7 +40,7 @@ INITIALIZATION.
 
   CLEAR:
     GIT_MARA,                          "内部テーブル
-    WA_MARA,                           "作業エリア
+    GW_MARA,                           "作業エリア
     LV_COUNT.                          "取得件数
 
 *----------------------------------------------------------------------*
@@ -70,10 +70,10 @@ START-OF-SELECTION.
   ELSE.
 
 * 成功時、取得データを出力
-    LOOP AT GIT_MARA INTO WA_MARA.
+    LOOP AT GIT_MARA INTO GW_MARA.
       WRITE:
-        /  WA_MARA-MATNR,              "品目コード
-        30 WA_MARA-ERSDA.              "登録日
+        /  GW_MARA-MATNR,              "品目コード
+        30 GW_MARA-ERSDA.              "登録日
     ENDLOOP.
 
   ENDIF.
