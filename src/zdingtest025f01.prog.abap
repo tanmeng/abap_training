@@ -9,13 +9,13 @@
 *&---------------------------------------------------------------------*
 FORM SEL_DATA.
   SELECT
-    MARD~MATNR,
-    MARD~WERKS,
-    MARD~LGORT,
-    MARD~LVORM,
-    MARD~LABST,
-    MARD~INSME,
-    MARA~MEINS
+    MARD~MATNR,   "品目コード
+    MARD~WERKS,   "プラント
+    MARD~LGORT,   "保管場所
+    MARD~LVORM,   "削除フラグ
+    MARD~LABST,   "利用可能評価在庫
+    MARD~INSME,   "品質検査中在庫
+    MARA~MEINS    "単位
   FROM
     MARD
   INNER JOIN
@@ -35,16 +35,17 @@ ENDFORM.
 *&---------------------------------------------------------------
 
 FORM SET_HEAD.
+* 見出し
   GW_COMMENTARY-TYP  = 'H'.
   GW_COMMENTARY-KEY  = ''.
   GW_COMMENTARY-INFO = '品目明細'.
   APPEND:GW_COMMENTARY TO GIT_COMMENTARY.
-
+* 項目名&値
   GW_COMMENTARY-TYP  = 'S'.
   GW_COMMENTARY-KEY  = '倉庫'.
   GW_COMMENTARY-INFO = P_LGORT.
   APPEND GW_COMMENTARY TO GIT_COMMENTARY.
-
+* インフォメーション
   GW_COMMENTARY-TYP = 'A'.
   GW_COMMENTARY-KEY = ''.
   GW_COMMENTARY-INFO = 'Enterpriseで作成' .
@@ -97,6 +98,10 @@ CALL FUNCTION 'REUSE_ALV_FIELDCATALOG_MERGE'
     INCONSISTENT_INTERFACE       = 1
     PROGRAM_ERROR                = 2
     OTHERS                       = 3.
+
+IF SY-SUBRC <> 0.
+  MESSAGE E002(ZDTEST01).
+ENDIF.
 ENDFORM.
 
 
@@ -117,8 +122,7 @@ FORM MDL_OUTPUT_ALV.
       T_OUTTAB                          = GIT_MARD
     EXCEPTIONS
       PROGRAM_ERROR                     = 1
-      OTHERS                            = 2
-              .
+      OTHERS                            = 2.
 IF SY-SUBRC <> 0.
   MESSAGE E002(ZDTEST01).
 ENDIF.
