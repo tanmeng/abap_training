@@ -42,11 +42,9 @@ FORM MAIN_PROC.
       60 GW_MARA-LAEDA,   "最終変更日付
       80 GW_MARA-AENAM.   "オブジェクトの変更者名
   ENDLOOP.
-
-    ULINE.
+  ULINE.
 
     WRITE:
-
       / '件数 = ',
       GV_VALUE,
       '件'.
