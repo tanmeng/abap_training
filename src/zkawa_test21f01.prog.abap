@@ -114,17 +114,18 @@ FORM MDL_GET_FIELDCAT.
 
   CALL FUNCTION 'REUSE_ALV_FIELDCATALOG_MERGE'
     EXPORTING
-      I_PROGRAM_NAME               = SY-REPID
-      I_INTERNAL_TABNAME           = 'GIT_MARD'
-      I_INCLNAME                   = SY-REPID
+      I_PROGRAM_NAME         = SY-REPID
+      I_INTERNAL_TABNAME     = 'GIT_MARD'
+      I_INCLNAME             = SY-REPID
     CHANGING
-      CT_FIELDCAT                  = GIT_FIELDCAT
+      CT_FIELDCAT            = GIT_FIELDCAT
     EXCEPTIONS
-      INCONSISTENT_INTERFACE       = 1
-      PROGRAM_ERROR                = 2
-      OTHERS                       = 3.
+      INCONSISTENT_INTERFACE = 1
+      PROGRAM_ERROR          = 2
+      OTHERS                 = 3.
 
   IF SY-SUBRC <> 0.
+
 *   失敗時、エラーメッセージ出力
     MESSAGE E002(ZTEST1) WITH TEXT-002.
     STOP.
@@ -152,6 +153,7 @@ FORM MDL_OUTPUT_ALV.
       OTHERS                            = 2.
 
   IF SY-SUBRC <> 0.
+
 *   失敗時、エラーメッセージ出力
     MESSAGE E002(ZTEST1) WITH TEXT-003.
     STOP.

@@ -4,15 +4,15 @@
 *----------------------------------------------------------------------*
 * Type定義
 *----------------------------------------------------------------------*
-
 TYPE-POOLS:
   SLIS.
 
 *----------------------------------------------------------------------*
 * Data定義
 *----------------------------------------------------------------------*
-
 DATA:
+
+* 品目の保管場所データ
   BEGIN OF GIT_MARD OCCURS 0,
     MATNR LIKE MARD-MATNR,                  "品目コード
     WERKS LIKE MARD-WERKS,                  "プラント
@@ -25,8 +25,10 @@ DATA:
 
 * フィールドカタログ用
   GIT_FIELDCAT   TYPE SLIS_T_FIELDCAT_ALV,  "フィールドカタログ
+
 * ヘッダー用
   GIT_COMMENTARY TYPE SLIS_T_LISTHEADER,    "ヘッダー用内部テーブル
   GW_COMMENTARY  TYPE SLIS_LISTHEADER,      "ヘッダー用構造
+
 * レイアウト用
   GW_LAYOUT      TYPE SLIS_LAYOUT_ALV.      "レイアウト用構造

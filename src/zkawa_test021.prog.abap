@@ -11,14 +11,16 @@ INCLUDE:
   ZKAWA_TEST21F01.                       "サブルーチン
 
 *----------------------------------------------------------------------*
-INITIALIZATION.
+* INITIALIZATION
 *----------------------------------------------------------------------*
+INITIALIZATION.
 
   PERFORM F_CLEAR_DATA.                  "データ初期化
 
 *----------------------------------------------------------------------*
-START-OF-SELECTION.
+* START-OF-SELECTION
 *----------------------------------------------------------------------*
+START-OF-SELECTION.
 
   PERFORM DB_SEL_DATA.                   "MARDとMARAからデータ取得
   PERFORM F_SET_HEAD.                    "ALVヘッダー編集
