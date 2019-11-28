@@ -110,7 +110,7 @@ FORM MDL_OUTPUT_ALV.
   CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
     EXPORTING
       I_CALLBACK_PROGRAM                = SY-REPID
-      I_CALLBACK_TOP_OF_PAGE            = 'SET_HEAD'
+      I_CALLBACK_TOP_OF_PAGE            = 'ALV_HEAD'
       IS_LAYOUT                         = GW_LAYOUT
       IT_FIELDCAT                       = GIT_FIELDCAT
     TABLES
