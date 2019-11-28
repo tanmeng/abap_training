@@ -8,15 +8,15 @@ REPORT ZKAWA_TEST019.
 *----------------------------------------------------------------------*
 * Type定義
 *----------------------------------------------------------------------*
-
 TYPE-POOLS:
   SLIS.
 
 *----------------------------------------------------------------------*
 * Data定義
 *----------------------------------------------------------------------*
-
 DATA:
+
+* 品目の保管場所データ
   BEGIN OF GIT_MARD OCCURS 0,
     MATNR LIKE MARD-MATNR,             "品目コード
     WERKS LIKE MARD-WERKS,             "プラント
@@ -28,19 +28,21 @@ DATA:
   END   OF GIT_MARD,
 
 * フィールドカタログ用
-  GW_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV. "フィールドカタログ
+  GIT_FIELDCAT TYPE SLIS_T_FIELDCAT_ALV. "フィールドカタログ
 
 *----------------------------------------------------------------------*
-INITIALIZATION.
+* INITIALIZATION.
 *----------------------------------------------------------------------*
+INITIALIZATION.
 
   CLEAR:
     GIT_MARD,
-    GW_FIELDCAT.
+    GIT_FIELDCAT.
 
 *----------------------------------------------------------------------*
-START-OF-SELECTION.
+* START-OF-SELECTION.
 *----------------------------------------------------------------------*
+START-OF-SELECTION.
 
   PERFORM DB_SEL_DATA.                   "MARDとMARAからデータ取得
   PERFORM MDL_GET_FIELDCAT.              "フィールドカタログ取得
@@ -60,7 +62,7 @@ START-OF-SELECTION.
       MARD~LVORM,                        "削除フラグ
       MARD~LABST,                        "利用可能評価在庫
       MARD~INSME,                        "品質検査中在庫
-      MARA~MEINS
+      MARA~MEINS                         "基本数量単位
     FROM
       MARD
     INNER JOIN
@@ -80,19 +82,20 @@ START-OF-SELECTION.
   FORM MDL_GET_FIELDCAT.
 
     CALL FUNCTION 'REUSE_ALV_FIELDCATALOG_MERGE'
-     EXPORTING
-       I_PROGRAM_NAME               = SY-REPID
-       I_INTERNAL_TABNAME           = 'GIT_MARD'
-       I_INCLNAME                   = SY-REPID
+      EXPORTING
+       I_PROGRAM_NAME         = SY-REPID
+       I_INTERNAL_TABNAME     = 'GIT_MARD'
+       I_INCLNAME             = SY-REPID
       CHANGING
-        CT_FIELDCAT                 = GW_FIELDCAT
-     EXCEPTIONS
-       INCONSISTENT_INTERFACE       = 1
-       PROGRAM_ERROR                = 2
-       OTHERS                       = 3.
+        CT_FIELDCAT           = GIT_FIELDCAT
+      EXCEPTIONS
+       INCONSISTENT_INTERFACE = 1
+       PROGRAM_ERROR          = 2
+       OTHERS                 = 3.
 
     IF SY-SUBRC <> 0.
-*     失敗時、エラーメッセージ出力
+
+* 失敗時、エラーメッセージ出力
       MESSAGE E002(ZTEST1) WITH TEXT-002.
       STOP.
     ENDIF.
@@ -108,16 +111,17 @@ START-OF-SELECTION.
 
     CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
      EXPORTING
-       I_CALLBACK_PROGRAM                = SY-REPID
-       IT_FIELDCAT                       = GW_FIELDCAT
+       I_CALLBACK_PROGRAM = SY-REPID
+       IT_FIELDCAT        = GIT_FIELDCAT
       TABLES
-        T_OUTTAB                         = GIT_MARD
+        T_OUTTAB          = GIT_MARD
      EXCEPTIONS
-       PROGRAM_ERROR                     = 1
-         OTHERS                          = 2.
+       PROGRAM_ERROR      = 1
+         OTHERS           = 2.
 
     IF SY-SUBRC <> 0.
-*     失敗時、エラーメッセージ出力
+
+* 失敗時、エラーメッセージ出力
       MESSAGE E002(ZTEST1) WITH TEXT-003.
       STOP.
     ENDIF.
