@@ -80,11 +80,11 @@ FORM F_SET_HEAD.
 ENDFORM.
 
 *&---------------------------------------------------------------------*
-*& FORM MDL_ALV_HEAD
+*& FORM F_CALL_REUSE_ALV_COMMENT
 *&---------------------------------------------------------------------*
 * ALVヘッダー出力用FORM作成
 *----------------------------------------------------------------------*
-FORM MDL_ALV_HEAD.
+FORM F_CALL_REUSE_ALV_COMMENT.
 
   CALL FUNCTION 'REUSE_ALV_COMMENTARY_WRITE'
     EXPORTING
@@ -106,11 +106,11 @@ FORM F_SET_LAYOUT.
 ENDFORM.
 
 *&---------------------------------------------------------------------*
-*& FORM MDL_GET_FIELDCAT
+*& FORM F_CALL_REUSE_ALV_FIELDCAT
 *&---------------------------------------------------------------------*
 * フィールドカタログ取得
 *----------------------------------------------------------------------*
-FORM MDL_GET_FIELDCAT.
+FORM F_CALL_REUSE_ALV_FIELDCAT.
 
   CALL FUNCTION 'REUSE_ALV_FIELDCATALOG_MERGE'
     EXPORTING
@@ -134,23 +134,23 @@ FORM MDL_GET_FIELDCAT.
 ENDFORM.
 
 *&---------------------------------------------------------------------*
-*& FORM MDL_OUTPUT_ALV
+*& FORM F_CALL_REUSE_ALV_GRID
 *&---------------------------------------------------------------------*
 * ALV表示
 *----------------------------------------------------------------------*
-FORM MDL_OUTPUT_ALV.
+FORM F_CALL_REUSE_ALV_GRID.
 
   CALL FUNCTION 'REUSE_ALV_GRID_DISPLAY'
     EXPORTING
-      I_CALLBACK_PROGRAM                = SY-REPID
-      IT_FIELDCAT                       = GIT_FIELDCAT
-      I_CALLBACK_TOP_OF_PAGE            = 'MDL_ALV_HEAD'
-      IS_LAYOUT                         = GW_LAYOUT
+      I_CALLBACK_PROGRAM       = SY-REPID
+      IT_FIELDCAT              = GIT_FIELDCAT
+      I_CALLBACK_TOP_OF_PAGE   = 'F_CALL_REUSE_ALV_COMMENT'
+      IS_LAYOUT                = GW_LAYOUT
     TABLES
-      T_OUTTAB                          = GIT_MARD
+      T_OUTTAB                 = GIT_MARD
     EXCEPTIONS
-      PROGRAM_ERROR                     = 1
-      OTHERS                            = 2.
+      PROGRAM_ERROR            = 1
+      OTHERS                   = 2.
 
   IF SY-SUBRC <> 0.
 

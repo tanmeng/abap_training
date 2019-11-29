@@ -25,5 +25,5 @@ START-OF-SELECTION.
   PERFORM DB_SEL_DATA.                   "MARDとMARAからデータ取得
   PERFORM F_SET_HEAD.                    "ALVヘッダー編集
   PERFORM F_SET_LAYOUT.                  "ALVレイアウト編集
-  PERFORM MDL_GET_FIELDCAT.              "フィールドカタログ取得
-  PERFORM MDL_OUTPUT_ALV.                "ALV表示
+  PERFORM F_CALL_REUSE_ALV_FIELDCAT.     "フィールドカタログ取得
+  PERFORM F_CALL_REUSE_ALV_GRID.         "ALV表示
