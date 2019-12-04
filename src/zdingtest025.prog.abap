@@ -17,5 +17,5 @@ START-OF-SELECTION.
   PERFORM SEL_DATA.           "MARD.MARAテーブルから内部テーブルに格納
   PERFORM SET_HEAD.           "ALVヘッダー編集
   PERFORM SET-LAYOUT.         "レイアウト
-  PERFORM MDL_GET_FIELDCAT.   "カタログ情報取得
-  PERFORM MDL_OUTPUT_ALV.     "画面表示
+  PERFORM F_GET_FIELDCAT.     "カタログ情報取得
+  PERFORM F_OUTPUT_ALV.       "画面表示
